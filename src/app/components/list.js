@@ -1,9 +1,11 @@
+
+export { createList }
 /**
  * Creates UL element which contains all LI elements
  * @param features
  * @returns {Element}
  */
-export function createList(features) {
+function createList(features) {
   const allLi = features.reduce((fragment, item, index) => {
     const li = _createLi(index + 1, item.properties.title)
     fragment.appendChild(li)

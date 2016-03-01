@@ -1,6 +1,6 @@
-import { createList } from './components/list'
 import { loadMap } from './components/map'
-import { getEarthquakeData } from './other/data'
+import { getEarthquakeData } from './data'
+import { createList } from './components/list'
 
 const rootElement = document.createElement('div')
 const state = {
