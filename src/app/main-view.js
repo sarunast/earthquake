@@ -46,7 +46,7 @@ function createElements() {
 
     const mapDiv = document.createElement('div')
     rootElement.appendChild(mapDiv)
-    mapDiv.className = 'mdl-cell mdl-cell--8-col mdl-shadow--2dp mdl-cell--stretch'
+    mapDiv.className = 'mdl-cell mdl-cell--8-col mdl-cell--stretch mdl-shadow--2dp'
 
     const ul = createList(state.top10Earthquakes.features)
     top10Div.appendChild(ul)
@@ -54,21 +54,6 @@ function createElements() {
   }
 
   return rootElement
-}
-
-/**
- * Used for loading data
- * @returns {*|Promise.<T>}
- * @private
- */
-function _componentDidMount() {
-  return getEarthquakeData()
-    .then(_sortEarthquakeData)
-    .then(_getTop10Earthquakes)
-    .then((top10Earthquakes) => _setState({
-      isLoading: false,
-      top10Earthquakes
-    }))
 }
 
 /**
@@ -82,22 +67,37 @@ function _setState(newState) {
 }
 
 /**
- * Sorts earthquakes and returns only top 10
- * @param todayEarthquakes
- * @returns {*}
+ * Used for loading data
+ * @returns {*|Promise.<T>}
+ * @private
  */
-function _getTop10Earthquakes(todayEarthquakes) {
-  return Object.assign(
-    {}, todayEarthquakes, { features: todayEarthquakes.features.slice(0, 10) }
-  )
-}
+function _componentDidMount() {
+  return getEarthquakeData()
+    .then(sortEarthquakeData)
+    .then(getTop10Earthquakes)
+    .then((top10Earthquakes) => _setState({
+      isLoading: false,
+      top10Earthquakes
+    }))
 
-/**
- * Sort earthquake geoData
- * @param earthquakeGeoData
- * @returns {*}
- */
-function _sortEarthquakeData(earthquakeGeoData) {
-  earthquakeGeoData.features.sort((a, b) => b.properties.mag - a.properties.mag)
-  return earthquakeGeoData
+  /**
+   * Sorts earthquakes and returns only top 10
+   * @param todayEarthquakes
+   * @returns {*}
+   */
+  function getTop10Earthquakes(todayEarthquakes) {
+    return Object.assign(
+      {}, todayEarthquakes, { features: todayEarthquakes.features.slice(0, 10) }
+    )
+  }
+
+  /**
+   * Sort earthquake geoData
+   * @param earthquakeGeoData
+   * @returns {*}
+   */
+  function sortEarthquakeData(earthquakeGeoData) {
+    earthquakeGeoData.features.sort((a, b) => b.properties.mag - a.properties.mag)
+    return earthquakeGeoData
+  }
 }
