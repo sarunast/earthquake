@@ -19,16 +19,14 @@ _componentDidMount() // Load our data and re-render
  * @returns {Element}
  */
 function createElements() {
-  rootElement.className = 'mdl-grid'
   rootElement.innerHTML = '' // set content empty if anything is inside
+  rootElement.className = 'mdl-grid'
 
   if (state.isLoading) {
     // Loading spinner
     const spinnerRoot = document.createElement('div')
     rootElement.appendChild(spinnerRoot)
-    spinnerRoot.className = 'mdl-grid'
-    spinnerRoot.style.paddingTop = '200px'
-    spinnerRoot.style.paddingBottom = '200px'
+    spinnerRoot.className = 'mdl-grid spinner'
 
     const centeringDiv = document.createElement('div')
     centeringDiv.className = 'mdl-layout-spacer'
