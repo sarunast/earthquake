@@ -57,6 +57,7 @@ node_modules
 # .idea/mongoSettings.xml
 
 ## File-based project format:
+/dist
 *.ipr
 *.iws
 
