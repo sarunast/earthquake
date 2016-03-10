@@ -1,6 +1,6 @@
-import { loadMap } from './components/map'
+import { render as renderMap } from './components/map'
 import { getEarthquakeData } from './data'
-import { createList } from './components/list'
+import { render as renderList } from './components/list'
 
 const rootElement = document.createElement('div')
 const state = {
@@ -10,7 +10,7 @@ const state = {
   }
 }
 
-export default { createElements }
+export { render }
 
 _componentDidMount() // Load our data and re-render
 
@@ -18,7 +18,7 @@ _componentDidMount() // Load our data and re-render
  * Creates earthquake list and map
  * @returns {Element}
  */
-function createElements() {
+function render() {
   rootElement.innerHTML = '' // set content empty if anything is inside
   rootElement.className = 'mdl-grid'
 
@@ -46,9 +46,9 @@ function createElements() {
     rootElement.appendChild(mapDiv)
     mapDiv.className = 'mdl-cell mdl-cell--8-col mdl-cell--stretch mdl-shadow--2dp'
 
-    const ul = createList(state.top10Earthquakes.features)
+    const ul = renderList(state.top10Earthquakes.features)
     top10Div.appendChild(ul)
-    loadMap(state.top10Earthquakes, mapDiv)
+    renderMap(state.top10Earthquakes, mapDiv)
   }
 
   return rootElement
@@ -61,7 +61,7 @@ function createElements() {
  */
 function _setState(newState) {
   Object.assign(state, newState)
-  createElements()
+  render()
 }
 
 /**

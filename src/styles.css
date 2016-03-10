@@ -49,3 +49,7 @@ h1 {
     padding-top: 200px;
     padding-bottom: 200px;
 }
+
+.active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
