@@ -1,4 +1,4 @@
-import { resolveJSONP } from './data'
+import { resolveJSONP, getTop10Earthquakes } from './data'
 import { render as renderMap } from './components/map'
 import { render as renderList } from './components/list'
 
@@ -64,37 +64,14 @@ function _setState(newState) {
 }
 
 /**
- * Used for loading data
+ * Resolves promise and then re-renders with new data
  * @returns {*|Promise.<T>}
  * @private
  */
 function _componentDidMount() {
-  return resolveJSONP('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojsonp', 'eqfeed_callback')
-    .then(sortEarthquakeData)
-    .then(getTop10Earthquakes)
+  return getTop10Earthquakes()
     .then((top10Earthquakes) => _setState({
       isLoading: false,
       top10Earthquakes
     }))
-
-  /**
-   * Sorts earthquakes and returns only top 10
-   * @param todayEarthquakes
-   * @returns {*}
-   */
-  function getTop10Earthquakes(todayEarthquakes) {
-    return Object.assign(
-      {}, todayEarthquakes, { features: todayEarthquakes.features.slice(0, 10) }
-    )
-  }
-
-  /**
-   * Sort earthquake geoData
-   * @param earthquakeGeoData
-   * @returns {*}
-   */
-  function sortEarthquakeData(earthquakeGeoData) {
-    earthquakeGeoData.features.sort((a, b) => b.properties.mag - a.properties.mag)
-    return earthquakeGeoData
-  }
 }

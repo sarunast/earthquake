@@ -91,7 +91,7 @@ describe('main-view.js', () => {
       renderMap = sinon.stub()
 
       // Rewire
-      MainViewRewireAPI.__Rewire__('resolveJSONP', () => Promise.resolve(responseData))
+      MainViewRewireAPI.__Rewire__('getTop10Earthquakes', () => Promise.resolve(responseData))
       MainViewRewireAPI.__Rewire__('renderMap', renderMap)
       MainViewRewireAPI.__Rewire__('renderList', renderList)
       return _componentDidMount()
