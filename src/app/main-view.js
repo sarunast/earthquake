@@ -1,5 +1,5 @@
 import { render as renderMap } from './components/map'
-import { getEarthquakeData } from './data'
+import { resolveJSONP } from './data'
 import { render as renderList } from './components/list'
 
 const rootElement = document.createElement('div')
@@ -70,7 +70,7 @@ function _setState(newState) {
  * @private
  */
 function _componentDidMount() {
-  return getEarthquakeData()
+  return resolveJSONP('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojsonp', 'eqfeed_callback')
     .then(sortEarthquakeData)
     .then(getTop10Earthquakes)
     .then((top10Earthquakes) => _setState({

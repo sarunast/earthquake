@@ -1,17 +1,19 @@
 import { Promise } from 'es6-promise'
 
-export { getEarthquakeData }
+export { resolveJSONP }
 
 /**
- * Retrieves today's all earthquakes
+ * Resolves JSONP request as a promise
+ * @param url
+ * @param callback
  * @returns {Promise}
  */
-function getEarthquakeData() {
+function resolveJSONP(url, callback) {
   const scriptEl = document.createElement('script')
-  scriptEl.setAttribute('src', 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojsonp')
+  scriptEl.setAttribute('src', url)
   document.body.appendChild(scriptEl)
 
   return new Promise((resolve) => {
-    window.eqfeed_callback = resolve
+    window[callback] = resolve
   })
 }
