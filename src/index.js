@@ -1,4 +1,4 @@
-import { render as renderApp } from './app/main-view'
+import { render as earthquakeApp } from './app/main-view'
 import './styles.css'
 
 // Accept hot module reloading during development
@@ -10,7 +10,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 // lets load our earthquake application
 render(
-  renderApp(),
+  earthquakeApp(),
   document.getElementById('page-content')
 )
 
