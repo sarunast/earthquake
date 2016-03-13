@@ -3,7 +3,7 @@ import { updatePosition as updateMapPosition } from './map'
 const rootElement = document.createElement('ul')
 const state = {
   features: {},
-  activeId: ''
+  activeIndex: ''
 }
 
 export { render }
@@ -11,27 +11,28 @@ export { render }
 /**
  * Renders and sets initial state data
  * @param features
+ * @param activeIndex
  * @returns {Element|Object}
  */
-function render(features) {
-  return _setState({ features, activeId: features[0].id })
+function render(features, activeIndex) {
+  return _setState({ features, activeIndex })
 }
 
 /**
  * Creates UL element which contains all LI elements
  * @param features
- * @param activeId
+ * @param activeIndex
  * @returns {Element|Object}
  */
-function _createList(features = state.features, activeId = state.activeId) {
+function _createList(features = state.features, activeIndex = state.activeIndex) {
   rootElement.innerHTML = '' // set content empty if anything is inside
   rootElement.className = 'mdl-list'
 
   const allLi = features.reduce((fragment, earthquake, index) => {
     const li = _createLi(index + 1, earthquake.properties.title)
-    li.addEventListener('click', () => _onClick(earthquake))
+    li.addEventListener('click', () => _onClick(earthquake, index))
     // Show selected li element
-    if (activeId === earthquake.id) {
+    if (activeIndex === index) {
       li.className += ' active'
     }
     fragment.appendChild(li)
@@ -45,11 +46,12 @@ function _createList(features = state.features, activeId = state.activeId) {
 /**
  * LI element on click function
  * @param earthquake
+ * @param index
  * @private
  */
-function _onClick(earthquake) {
+function _onClick(earthquake, index) {
   updateMapPosition(earthquake.geometry.coordinates[1], earthquake.geometry.coordinates[0])
-  _setState({ activeId: earthquake.id })
+  _setState({ activeIndex: index })
 }
 
 /**

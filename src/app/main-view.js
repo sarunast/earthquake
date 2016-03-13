@@ -1,5 +1,5 @@
-import { render as renderMap } from './components/map'
 import { resolveJSONP } from './data'
+import { render as renderMap } from './components/map'
 import { render as renderList } from './components/list'
 
 const rootElement = document.createElement('div')
@@ -10,7 +10,7 @@ const state = {
   }
 }
 
-export { render }
+export { render, _componentDidMount }
 
 _componentDidMount() // Load our data and re-render
 
@@ -46,7 +46,7 @@ function render() {
     rootElement.appendChild(mapDiv)
     mapDiv.className = 'mdl-cell mdl-cell--8-col mdl-cell--stretch mdl-shadow--2dp'
 
-    const ul = renderList(state.top10Earthquakes.features)
+    const ul = renderList(state.top10Earthquakes.features, 0)
     top10Div.appendChild(ul)
     renderMap(state.top10Earthquakes, mapDiv)
   }
