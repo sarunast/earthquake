@@ -17,5 +17,13 @@
   },
   "plugins": [
     "babel"
-  ]
+  ],
+  "env": {
+    "browser" : true,
+    "phantomjs": true,
+    "mocha" : true
+  },
+  "globals": {
+    "expect" : true
+  }
 }

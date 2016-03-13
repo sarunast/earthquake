@@ -38,16 +38,15 @@ function render() {
     spinnerRoot.appendChild(spinner)
     spinnerRoot.appendChild(centeringDiv.cloneNode(false))
   } else {
+    const ul = renderList(state.top10Earthquakes.features, 0)
     const top10Div = document.createElement('div')
     rootElement.appendChild(top10Div)
     top10Div.className = 'mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-shadow--2dp'
+    top10Div.appendChild(ul)
 
     const mapDiv = document.createElement('div')
     rootElement.appendChild(mapDiv)
     mapDiv.className = 'mdl-cell mdl-cell--8-col mdl-cell--stretch mdl-shadow--2dp'
-
-    const ul = renderList(state.top10Earthquakes.features, 0)
-    top10Div.appendChild(ul)
     renderMap(state.top10Earthquakes, mapDiv)
   }
 

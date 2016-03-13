@@ -7,6 +7,7 @@ module.exports = function(config) {
 
     files: [
       './node_modules/phantomjs-polyfill/bind-polyfill.js',
+      './node_modules/es6-object-assign/dist/object-assign.js',
       'tests.webpack.js'
     ],
 
@@ -17,7 +18,8 @@ module.exports = function(config) {
     frameworks: [
       'mocha',
       'chai',
-      'sinon'
+      'sinon',
+      'sinon-chai'
     ],
 
     reporters: [
@@ -81,7 +83,8 @@ module.exports = function(config) {
       'karma-phantomjs-launcher',
       'karma-coverage',
       'karma-sourcemap-loader',
-      'karma-spec-reporter'
+      'karma-spec-reporter',
+      'karma-sinon-chai'
     ]
   })
 }
