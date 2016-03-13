@@ -25,14 +25,14 @@ function resolveJSONP(url, callback) {
 function getTop10Earthquakes() {
   return resolveJSONP('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojsonp', 'eqfeed_callback')
     .then(sortEarthquakeData)
-    .then(getTop10Earthquakes)
+    .then(sliceTop10Earthquakes)
 
   /**
    * Sorts earthquakes and returns only top 10
    * @param todayEarthquakes
    * @returns {*}
    */
-  function getTop10Earthquakes(todayEarthquakes) {
+  function sliceTop10Earthquakes(todayEarthquakes) {
     return Object.assign(
       {}, todayEarthquakes, { features: todayEarthquakes.features.slice(0, 10) }
     )
