@@ -25,7 +25,8 @@ describe('list.js', () => {
 
   describe('LI element', () => {
     let liData
-    let liRoot
+    let liFirst
+    let updateMapPosition
     beforeEach(() => {
       liData = {
         properties: {
@@ -37,8 +38,12 @@ describe('list.js', () => {
       }
       listData.push(liData)
       listData.push(liData)
+
+      updateMapPosition = sinon.stub()
+      ListRewireAPI.__Rewire__('updateMapPosition', updateMapPosition)
+
       ulRoot = render(listData, 0)
-      liRoot = ulRoot.childNodes[0]
+      liFirst = ulRoot.childNodes[0]
     })
 
     it('root Ul should have 2 child node', () => {
@@ -46,26 +51,45 @@ describe('list.js', () => {
     })
 
     it('should be LI', () => {
-      expect(liRoot.tagName).to.be.equal('LI')
+      expect(liFirst.tagName).to.be.equal('LI')
     })
 
     it('should have specific css class', () => {
-      expect(liRoot.className).to.contain('mdl-list__item mdl-list__item--small')
+      expect(liFirst.className).to.contain('mdl-list__item mdl-list__item--small')
     })
 
     it('should set .active class', () => {
-      expect(liRoot.className).to.contain('active')
+      expect(liFirst.className).to.contain('active')
     })
 
     it('should not contain .active class on other', () => {
       expect(ulRoot.childNodes[1].className).not.to.contain('active')
     })
 
+    describe('LI on click', () => {
+      beforeEach(() => {
+        ulRoot.childNodes[1].click()
+      })
+      it('should change active state', () => {
+        expect(ulRoot.childNodes[1].className).to.contain('active')
+      })
+
+      it('should call updateMapPosition function with parameters', () => {
+        expect(updateMapPosition).to.have.been
+          .calledWith(liData.geometry.coordinates[1], liData.geometry.coordinates[0])
+      })
+
+      it('should call once', () => {
+        expect(updateMapPosition).to.have.been.calledOnce
+      })
+    })
+
     describe('Li SPAN child element', () => {
       let spanElement
       beforeEach(() => {
-        spanElement = liRoot.childNodes[0]
+        spanElement = liFirst.childNodes[0]
       })
+
       it('should be SPAN', () => {
         expect(spanElement.tagName).to.be.equal('SPAN')
       })
