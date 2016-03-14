@@ -12,10 +12,18 @@ Leaflet.Icon.Default.imagePath = '//cdn.jsdelivr.net/leaflet/1.0.0-beta.2/images
  * @param element
  */
 function render(geoData, element) {
-  const nr1Coordinates = geoData.features[0].geometry.coordinates
+  let coordinates = [10.4, 126.66]
+
+  if (geoData.features[0]) {
+    coordinates = [
+      geoData.features[0].geometry.coordinates[1],
+      geoData.features[0].geometry.coordinates[0]
+    ]
+  }
+
   map = Leaflet
     .map(element)
-    .setView([nr1Coordinates[1], nr1Coordinates[0]], 2)
+    .setView(coordinates, 2)
 
   Leaflet
     .tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -37,5 +45,7 @@ function render(geoData, element) {
  * @param lng
  */
 function updatePosition(lat, lng) {
-  map.panTo([lat, lng])
+  if (map) {
+    map.panTo([lat, lng])
+  }
 }
