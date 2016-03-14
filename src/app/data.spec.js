@@ -1,6 +1,6 @@
-import { getEarthquakeData, __RewireAPI__ as FooModuleRewireAPI } from './data'
+import { resolveJSONP, __RewireAPI__ as DataRewireAPI } from './data'
 
-describe('data.spec.js', () => {
+describe('data.js', () => {
   it('test', () => {
     expect(3).to.be.eql(3)
   })

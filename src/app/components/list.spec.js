@@ -9,7 +9,7 @@ describe('list.js', () => {
     ulRoot = render(listData, 0)
   })
 
-  describe('root element', () => {
+  describe('UL root element', () => {
     it('should be div', () => {
       expect(ulRoot.tagName).to.be.equal('UL')
     })
