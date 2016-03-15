@@ -46,19 +46,13 @@ module.exports = function(config) {
             test: /spec\.js$/,
             include: /src/,
             exclude: /(bower_components|node_modules)/,
-            loader: 'babel',
-            query: {
-              cacheDirectory: true
-            }
+            loader: 'babel'
           },
           {
             test: /\.js?$/,
             include: /src/,
             exclude: /(node_modules|bower_components|spec)/,
-            loader: 'babel-istanbul',
-            query: {
-              cacheDirectory: true
-            }
+            loader: 'babel-istanbul'
           }
         ],
         loaders: [
