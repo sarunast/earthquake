@@ -1,9 +1,11 @@
 import { render, _componentDidMount, __RewireAPI__ as MainViewRewireAPI } from './main-view'
 
+
 describe('main-view.js', () => {
   let earthquakeApp
 
   beforeEach(() => {
+    MainViewRewireAPI.__Rewire__('getTop10Earthquakes', () => Promise.reject())
     earthquakeApp = render()
   })
   describe('root element', () => {
@@ -21,6 +23,8 @@ describe('main-view.js', () => {
     let loadingRoot
     beforeEach(() => {
       loadingRoot = earthquakeApp.childNodes[0]
+      MainViewRewireAPI.__Rewire__('getTop10Earthquakes', () => Promise.reject())
+      earthquakeApp = render()
     })
 
     describe('root element', () => {

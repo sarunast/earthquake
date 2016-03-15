@@ -12,13 +12,20 @@ const state = {
 
 export { render, _componentDidMount }
 
-_componentDidMount() // Load our data and re-render
-
 /**
- * Creates earthquake list and map
+ * Starts loading data and creates DOM
  * @returns {Element}
  */
 function render() {
+  _componentDidMount() // Load our data and re-render
+  return createDOM()
+}
+
+/**
+ * Creates main dom for earthquake app
+ * @returns {Element|Object}
+ */
+function createDOM(){
   rootElement.innerHTML = '' // set content empty if anything is inside
   rootElement.className = 'mdl-grid'
 
@@ -60,7 +67,7 @@ function render() {
  */
 function _setState(newState) {
   Object.assign(state, newState)
-  render()
+  createDOM()
 }
 
 /**
