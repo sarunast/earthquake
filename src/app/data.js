@@ -7,7 +7,7 @@ export { getTop10Earthquakes }
  * @returns {*|Promise.<T>|!Promise.<RESULT>}
  */
 function getTop10Earthquakes() {
-  return resolveJSONP('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojsonp', 'eqfeed_callback')
+  return resolveJSONP('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojsonp', 'eqfeed_callback')
     .then(sortEarthquakeData)
     .then(sliceTop10Earthquakes)
 
